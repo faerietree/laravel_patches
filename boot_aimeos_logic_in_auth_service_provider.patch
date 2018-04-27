@@ -1,0 +1,16 @@
+diff --git a/app/Providers/AuthServiceProvider.php b/app/Providers/AuthServiceProvider.php
+index 9784b1a..a8c828c 100644
+--- a/app/Providers/AuthServiceProvider.php
++++ b/app/Providers/AuthServiceProvider.php
+@@ -26,5 +26,11 @@ class AuthServiceProvider extends ServiceProvider
+         $this->registerPolicies();
+ 
+         //
++		Gate::define('admin', function($user, $class, $roles) {
++			if( isset( $user->superuser ) && $user->superuser ) {
++				return true;
++			}
++			return app( '\Aimeos\Shop\Base\Support' )->checkGroup( $user->id, $roles );
++		});
+     }
+ }
