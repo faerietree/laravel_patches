@@ -1,0 +1,34 @@
+From 9c6924e6d0250a5f3003e8a945e525f44c96b282 Mon Sep 17 00:00:00 2001
+From: "faerietree (ciryat)" <radagast@ciry.at>
+Date: Fri, 27 Apr 2018 06:42:34 +0000
+Subject: [PATCH] Limit string length to 191 to fix MariaDB, MySQL<=5.7.6 error
+ 'max key
+
+length is 767 bytes' while still allowing Emoji smileys getting stored.
+---
+ app/Providers/AppServiceProvider.php | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/app/Providers/AppServiceProvider.php b/app/Providers/AppServiceProvider.php
+index 35471f6..f70181e 100644
+--- a/app/Providers/AppServiceProvider.php
++++ b/app/Providers/AppServiceProvider.php
+@@ -3,6 +3,7 @@
+ namespace App\Providers;
+ 
+ use Illuminate\Support\ServiceProvider;
++use Illuminate\Support\Facades\Schema;
+ 
+ class AppServiceProvider extends ServiceProvider
+ {
+@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
+     public function boot()
+     {
+         //
++		Schema::defaultStringLength(191);
+     }
+ 
+     /**
+-- 
+2.16.2
+
