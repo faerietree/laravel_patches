@@ -1,0 +1,35 @@
+From 1fee433476763e28e48a9a5d4eccaa4adac71d05 Mon Sep 17 00:00:00 2001
+From: "faerietree (ciryat)" <radagast@ciry.at>
+Date: Fri, 27 Apr 2018 06:21:38 +0000
+Subject: [PATCH] Composer: Require Aimeos
+
+---
+ composer.json | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/composer.json b/composer.json
+index b7e08d3..1d9a10a 100644
+--- a/composer.json
++++ b/composer.json
+@@ -9,6 +9,7 @@
+         "fideloper/proxy": "^4.0",
+         "laravel/framework": "5.6.*",
+         "laravel/tinker": "^1.0"
++		,"aimeos/aimeos-laravel": "~2017.10"
+     },
+     "require-dev": {
+         "filp/whoops": "^2.0",
+@@ -48,6 +49,10 @@
+             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+             "@php artisan package:discover"
+         ]
++		,"post-update-cmd": [
++			"php artisan vendor:publish --tag=public --force",
++			"php artisan migrate"
++		]
+     },
+     "config": {
+         "preferred-install": "dist",
+-- 
+2.16.2
+
